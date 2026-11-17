@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 // ===================== DANE ZAPISU =====================
 // Wszystko, co ma przetrwać między uruchomieniami gry.
 // Nowe pola możesz dopisywać śmiało – stare zapisy dostaną wartość domyślną.
+
 [Serializable]
 public class SaveData
 {
+
     public int version = GameSaver.CurrentVersion;
     public long lastSaveTime;            // unix time (sekundy) – przyda się do synchronizacji z chmurą
 
@@ -33,6 +36,7 @@ public class SaveData
 // Obiekt musi być na samej górze hierarchii (nie jako dziecko), inaczej DontDestroyOnLoad nie zadziała.
 public class GameSaver : MonoBehaviour
 {
+    public Image newBest;
     public const int CurrentVersion = 1;
 
     public static GameSaver Instance { get; private set; }
@@ -91,7 +95,15 @@ public class GameSaver : MonoBehaviour
     public bool SubmitRun(int distance, int coinsToAdd, bool countRun = true)
     {
         bool newRecord = distance > Data.highScore;
-        if (newRecord) Data.highScore = distance;
+        if (newRecord) 
+        {
+            Data.highScore = distance;
+            newBest.enabled = true;
+        }
+        else
+        {
+            newBest.enabled = false;
+        }
 
         Data.coins += Mathf.Max(0, coinsToAdd);
         if (countRun) Data.totalRuns++;

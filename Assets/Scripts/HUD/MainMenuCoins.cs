@@ -7,8 +7,11 @@ public class MainMenuCoins : MonoBehaviour
 {
     [SerializeField] private TMP_Text coinsText;
     [SerializeField] private TMP_Text highScoreText;
+    [SerializeField] private TMP_Text score;
     [SerializeField] private string format = "{0}"; // np. "Monety: {0}"
     [SerializeField] private string highScoreFormat = "HighScore: {0}";
+    [SerializeField] private string scoreFormat = "Score: {0}";
+
 
     private bool subscribed;
     private void OnEnable()
@@ -43,10 +46,14 @@ public class MainMenuCoins : MonoBehaviour
         if (GameSaver.Instance == null) return;
         var d = GameSaver.Instance.Data;
 
+        if (GameHUD.Instance == null) return;
+
         if (coinsText != null)
             coinsText.SetText(format, d.coins);
 
         if (highScoreText != null)
             highScoreText.SetText(highScoreFormat, d.highScore);
+        if (score != null)
+            score.SetText(scoreFormat, GameHUD.Instance.GetCurrentDistance());
     }
 }

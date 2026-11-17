@@ -123,6 +123,8 @@ public class GameHUD : MonoBehaviour
     {
         if (GameSaver.Instance == null) return false;
 
+        if (GameHUD.Instance == null) return false;
+
         int coinsToAdd = sessionCoins - coinsAlreadySaved;
         coinsAlreadySaved = sessionCoins;
 
