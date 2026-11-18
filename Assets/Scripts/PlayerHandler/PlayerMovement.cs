@@ -353,14 +353,6 @@ public class PlayerMovement : MonoBehaviour
         if (targetLane == currentLane)
             return;
 
-        if (useAnimator && animator != null)
-        {
-            if (direction > 0)
-                animator.SetTrigger(turnRightTriggerHash);
-            else
-                animator.SetTrigger(turnLeftTriggerHash);
-        }
-
         currentLane = targetLane;
     }
 

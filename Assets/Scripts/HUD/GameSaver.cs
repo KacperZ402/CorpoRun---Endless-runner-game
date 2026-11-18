@@ -36,7 +36,6 @@ public class SaveData
 // Obiekt musi być na samej górze hierarchii (nie jako dziecko), inaczej DontDestroyOnLoad nie zadziała.
 public class GameSaver : MonoBehaviour
 {
-    public Image newBest;
     public const int CurrentVersion = 1;
 
     public static GameSaver Instance { get; private set; }
@@ -66,6 +65,7 @@ public class GameSaver : MonoBehaviour
 
     private void Awake()
     {
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -95,15 +95,7 @@ public class GameSaver : MonoBehaviour
     public bool SubmitRun(int distance, int coinsToAdd, bool countRun = true)
     {
         bool newRecord = distance > Data.highScore;
-        if (newRecord) 
-        {
-            Data.highScore = distance;
-            newBest.enabled = true;
-        }
-        else
-        {
-            newBest.enabled = false;
-        }
+        if (newRecord) Data.highScore = distance;
 
         Data.coins += Mathf.Max(0, coinsToAdd);
         if (countRun) Data.totalRuns++;

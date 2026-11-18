@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class GameHUD : MonoBehaviour
@@ -14,6 +15,8 @@ public class GameHUD : MonoBehaviour
     [SerializeField] private TMP_Text distanceText;
     [SerializeField] private TMP_Text highScoreText;
     [SerializeField] private float distanceDivider = 5f;
+
+    [SerializeField] private Image newBest;
 
     private AudioSource audioSource;
 
@@ -130,6 +133,15 @@ public class GameHUD : MonoBehaviour
 
         bool firstDeath = !runCounted;
         runCounted = true;
+
+        if (GetCurrentDistance() > GameSaver.Instance.Data.highScore) 
+        { 
+            newBest.enabled = true;
+        }
+        else
+        {
+            newBest.enabled = false;
+        }
 
         return GameSaver.Instance.SubmitRun(currentDistanceMeters, coinsToAdd, firstDeath);
     }

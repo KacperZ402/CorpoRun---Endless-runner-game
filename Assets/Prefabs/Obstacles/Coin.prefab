@@ -126,6 +126,8 @@ MonoBehaviour:
   flyUpDistance: 0
   collectSound: {fileID: 0}
   soundVolume: 0.8
+  magnetic: 1
+  attractDuration: 0.25
   coinValue: 1
 --- !u!114 &5401432587316783942
 MonoBehaviour:
