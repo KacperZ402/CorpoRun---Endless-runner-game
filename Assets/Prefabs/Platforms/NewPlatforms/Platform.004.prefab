@@ -488,9 +488,9 @@ MonoBehaviour:
   maxHangingProps: 1
   cellWidth: 1
   cellLength: 25
+  hangingHeight: 1.5
+  maxCellChecks: 100
   spawnBlockers: []
-  useBatchedSpawn: 1
-  maxOpsPerFrame: 5
 --- !u!1 &3026925828842252985
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,8 +542,7 @@ MonoBehaviour:
   spawnChance: 0.807
   ignoreSpawnBlockers: 1
   spawnBlockerLayerName: SpawnBlocker
-  keepLayerName: Keep
-  useBatchedSpawn: 1
+  blockerCheckRadius: 0.1
 --- !u!1 &3133508415190211830
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,8 +701,7 @@ MonoBehaviour:
   spawnChance: 0.807
   ignoreSpawnBlockers: 1
   spawnBlockerLayerName: SpawnBlocker
-  keepLayerName: Keep
-  useBatchedSpawn: 1
+  blockerCheckRadius: 0.1
 --- !u!1 &4811340831218540635
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,10 +921,10 @@ MonoBehaviour:
   maxHangingProps: 2
   cellWidth: 1
   cellLength: 25
+  hangingHeight: 1.5
+  maxCellChecks: 100
   spawnBlockers:
   - {fileID: 6773309978407281371}
-  useBatchedSpawn: 1
-  maxOpsPerFrame: 5
 --- !u!1 &5406732430737268602
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,8 +976,7 @@ MonoBehaviour:
   spawnChance: 0.807
   ignoreSpawnBlockers: 1
   spawnBlockerLayerName: SpawnBlocker
-  keepLayerName: Keep
-  useBatchedSpawn: 1
+  blockerCheckRadius: 0.1
 --- !u!1 &5494191688864678086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,8 +1028,7 @@ MonoBehaviour:
   spawnChance: 0.807
   ignoreSpawnBlockers: 1
   spawnBlockerLayerName: SpawnBlocker
-  keepLayerName: Keep
-  useBatchedSpawn: 1
+  blockerCheckRadius: 0.1
 --- !u!1 &5607893688372912485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,12 +1217,12 @@ MonoBehaviour:
   maxHangingProps: 3
   cellWidth: 1
   cellLength: 25
+  hangingHeight: 1.5
+  maxCellChecks: 100
   spawnBlockers:
   - {fileID: 2361697071701850919}
   - {fileID: 9043558657613473116}
   - {fileID: 8825689742777906284}
-  useBatchedSpawn: 1
-  maxOpsPerFrame: 5
 --- !u!1 &6105539949142272312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,10 +1588,10 @@ MonoBehaviour:
   maxHangingProps: 2
   cellWidth: 1
   cellLength: 25
+  hangingHeight: 1.5
+  maxCellChecks: 100
   spawnBlockers:
   - {fileID: 7535124901344577634}
-  useBatchedSpawn: 1
-  maxOpsPerFrame: 5
 --- !u!1 &7101777588052421964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1707,13 +1703,13 @@ MonoBehaviour:
   - {fileID: 7477574185236790878, guid: 64343bce06d157248a96ce4295794c73, type: 3}
   - {fileID: 7444192458501623583, guid: 8f59b7c76ee9ca64d98c2b647a5273e7, type: 3}
   - {fileID: 5361303841911357168, guid: f9ce1ea9ce139fe46b3e152741e2e499, type: 3}
+  maxUniversalProps: 2
   minProps: 3
   maxProps: 5
   cellSize: 10
+  maxPlacementAttempts: 30
   spawnBlockers:
   - {fileID: 7535124901344577634}
-  useBatchedSpawn: 1
-  maxPropsPerFrame: 5
 --- !u!1 &7313781286084858176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,6 +1722,7 @@ GameObject:
   - component: {fileID: 5666175805224641178}
   - component: {fileID: 6585216721761290470}
   - component: {fileID: 2602541154812003116}
+  - component: {fileID: 3811418448864290989}
   m_Layer: 0
   m_Name: Platform.004
   m_TagString: Platform
@@ -1845,11 +1842,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2618016714077179334, guid: c9bd46d303399f84d98fff2dd471597c, type: 3}
+--- !u!65 &3811418448864290989
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313781286084858176}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 190.0054, y: 4.33, z: 330.95605}
+  m_Center: {x: -64.376434, y: -0.365, z: 165.29437}
 --- !u!1 &7567431289755162422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,8 +1919,7 @@ MonoBehaviour:
   spawnChance: 0.807
   ignoreSpawnBlockers: 1
   spawnBlockerLayerName: SpawnBlocker
-  keepLayerName: Keep
-  useBatchedSpawn: 1
+  blockerCheckRadius: 0.1
 --- !u!1 &8436540484343215337
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,16 +2103,16 @@ MonoBehaviour:
   - {fileID: 7477574185236790878, guid: 64343bce06d157248a96ce4295794c73, type: 3}
   - {fileID: 7444192458501623583, guid: 8f59b7c76ee9ca64d98c2b647a5273e7, type: 3}
   - {fileID: 5361303841911357168, guid: f9ce1ea9ce139fe46b3e152741e2e499, type: 3}
+  maxUniversalProps: 2
   minProps: 10
   maxProps: 20
   cellSize: 10
+  maxPlacementAttempts: 30
   spawnBlockers:
   - {fileID: 4014645424807871467}
   - {fileID: 7269728215873886349}
   - {fileID: 7040518753722903495}
   - {fileID: 2075000532993466847}
-  useBatchedSpawn: 1
-  maxPropsPerFrame: 5
 --- !u!1 &8699080398067858591
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,9 +2247,9 @@ MonoBehaviour:
   maxHangingProps: 1
   cellWidth: 1
   cellLength: 25
+  hangingHeight: 1.5
+  maxCellChecks: 100
   spawnBlockers: []
-  useBatchedSpawn: 1
-  maxOpsPerFrame: 5
 --- !u!1 &8746400506022162910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,8 +2301,7 @@ MonoBehaviour:
   spawnChance: 0.807
   ignoreSpawnBlockers: 1
   spawnBlockerLayerName: SpawnBlocker
-  keepLayerName: Keep
-  useBatchedSpawn: 1
+  blockerCheckRadius: 0.1
 --- !u!1 &8998300462202300789
 GameObject:
   m_ObjectHideFlags: 0

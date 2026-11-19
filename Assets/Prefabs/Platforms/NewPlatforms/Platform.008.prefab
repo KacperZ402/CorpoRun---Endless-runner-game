@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 5042558023133120102}
   - component: {fileID: 2718663872287663168}
   - component: {fileID: -181016389683998013}
+  - component: {fileID: 8374236041414738201}
   m_Layer: 0
   m_Name: Platform.008
   m_TagString: Platform
@@ -441,6 +442,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5757087785694394478, guid: c9bd46d303399f84d98fff2dd471597c, type: 3}
+--- !u!65 &8374236041414738201
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3498708594043627312}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 147.03352, y: 8.13, z: 235.50002}
+  m_Center: {x: -43.154053, y: -2.26, z: 117.6527}
 --- !u!1 &4063530016234463842
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,9 +597,9 @@ MonoBehaviour:
   maxHangingProps: 1
   cellWidth: 1
   cellLength: 25
+  hangingHeight: 1.5
+  maxCellChecks: 100
   spawnBlockers: []
-  useBatchedSpawn: 1
-  maxOpsPerFrame: 5
 --- !u!1 &5698895186798469499
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,9 +806,9 @@ MonoBehaviour:
   maxHangingProps: 1
   cellWidth: 1
   cellLength: 25
+  hangingHeight: 1.5
+  maxCellChecks: 100
   spawnBlockers: []
-  useBatchedSpawn: 1
-  maxOpsPerFrame: 5
 --- !u!1 &7296708102122670129
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,12 +990,12 @@ MonoBehaviour:
   - {fileID: 7477574185236790878, guid: 64343bce06d157248a96ce4295794c73, type: 3}
   - {fileID: 7444192458501623583, guid: 8f59b7c76ee9ca64d98c2b647a5273e7, type: 3}
   - {fileID: 5361303841911357168, guid: f9ce1ea9ce139fe46b3e152741e2e499, type: 3}
+  maxUniversalProps: 2
   minProps: 10
   maxProps: 15
   cellSize: 10
+  maxPlacementAttempts: 30
   spawnBlockers: []
-  useBatchedSpawn: 1
-  maxPropsPerFrame: 5
 --- !u!1 &7746444845563722124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,12 +1110,12 @@ MonoBehaviour:
   - {fileID: 7477574185236790878, guid: 64343bce06d157248a96ce4295794c73, type: 3}
   - {fileID: 7444192458501623583, guid: 8f59b7c76ee9ca64d98c2b647a5273e7, type: 3}
   - {fileID: 5361303841911357168, guid: f9ce1ea9ce139fe46b3e152741e2e499, type: 3}
+  maxUniversalProps: 2
   minProps: 10
   maxProps: 15
   cellSize: 10
+  maxPlacementAttempts: 30
   spawnBlockers: []
-  useBatchedSpawn: 1
-  maxPropsPerFrame: 5
 --- !u!1 &8708878077422940985
 GameObject:
   m_ObjectHideFlags: 0

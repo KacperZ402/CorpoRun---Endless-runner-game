@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 3122628827671267398}
   - component: {fileID: 4735052657252704831}
   - component: {fileID: -937835358047772516}
+  - component: {fileID: 1481727838270621580}
   m_Layer: 0
   m_Name: Platform.009
   m_TagString: Platform
@@ -321,11 +322,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6511561984686293079, guid: c9bd46d303399f84d98fff2dd471597c, type: 3}
+--- !u!65 &1481727838270621580
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4235296636196388389}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 193.31406, y: 24.16, z: 110.29839}
+  m_Center: {x: -66.29431, y: -10.28, z: 55.104015}
 --- !u!1 &6568237801272661191
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,9 +670,9 @@ MonoBehaviour:
   - {fileID: 7477574185236790878, guid: 64343bce06d157248a96ce4295794c73, type: 3}
   - {fileID: 7444192458501623583, guid: 8f59b7c76ee9ca64d98c2b647a5273e7, type: 3}
   - {fileID: 5361303841911357168, guid: f9ce1ea9ce139fe46b3e152741e2e499, type: 3}
+  maxUniversalProps: 2
   minProps: 2
   maxProps: 4
   cellSize: 10
+  maxPlacementAttempts: 30
   spawnBlockers: []
-  useBatchedSpawn: 1
-  maxPropsPerFrame: 5

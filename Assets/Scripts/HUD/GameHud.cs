@@ -9,6 +9,7 @@ public class GameHUD : MonoBehaviour
 
     [Header("Referencje")]
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private PowerUpManager powerUps;
 
     [Header("Elementy UI (TextMeshPro)")]
     [SerializeField] private TMP_Text coinsText;
@@ -100,6 +101,9 @@ public class GameHUD : MonoBehaviour
 
     public void AddCoin(int amount = 1)
     {
+        if (powerUps != null)
+            amount *= powerUps.CoinMultiplier;
+
         sessionCoins += amount;
         UpdateCoinsUI();
     }

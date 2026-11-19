@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum PowerUpType { Magnet } // kolejne (tarcza, mnożnik...) dopisujesz tutaj
+public enum PowerUpType { Magnet, CoinMultiplier } 
 
 // Trzyma aktywne power-upy i ich czasy. Wrzuć na gracza.
 public class PowerUpManager : MonoBehaviour
@@ -10,6 +10,9 @@ public class PowerUpManager : MonoBehaviour
 
     private float[] remaining;
     private PlayerLife life;
+
+    [SerializeField] private int coinMultiplier = 2;
+    public int CoinMultiplier => IsActive(PowerUpType.CoinMultiplier) ? coinMultiplier : 1;
 
     private void Awake()
     {
