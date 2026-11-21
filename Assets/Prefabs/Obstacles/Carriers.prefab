@@ -52,8 +52,7 @@ MonoBehaviour:
   spawnChance: 1
   ignoreSpawnBlockers: 1
   spawnBlockerLayerName: SpawnBlocker
-  keepLayerName: Keep
-  useBatchedSpawn: 1
+  blockerCheckRadius: 0.1
 --- !u!1001 &2364099691499817354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149,6 +148,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1ecc6bac35d7b4349b3aa0d5b2b99ba5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5735104095954591785}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1ecc6bac35d7b4349b3aa0d5b2b99ba5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5999174282528020163}
   m_SourcePrefab: {fileID: 100100000, guid: 1ecc6bac35d7b4349b3aa0d5b2b99ba5, type: 3}
 --- !u!4 &2829458319285448289 stripped
 Transform:
@@ -212,6 +214,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.35, y: 16.91, z: 2.2593646}
   m_Center: {x: 0, y: 8.59, z: -0.67031765}
+--- !u!114 &5999174282528020163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174916744602465499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aacefb73d39ddd47ba461935c0f603f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &8188790475607880731 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1ecc6bac35d7b4349b3aa0d5b2b99ba5, type: 3}

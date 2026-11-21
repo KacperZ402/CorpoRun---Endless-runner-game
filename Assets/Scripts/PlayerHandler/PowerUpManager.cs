@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum PowerUpType { Magnet, CoinMultiplier } 
+public enum PowerUpType { Magnet, CoinMultiplier, Shield } 
 
 // Trzyma aktywne power-upy i ich czasy. Wrzuć na gracza.
 public class PowerUpManager : MonoBehaviour
@@ -37,6 +37,15 @@ public class PowerUpManager : MonoBehaviour
         // drugi taki sam power-up odświeża czas, a nie go sumuje
         remaining[i] = Mathf.Max(remaining[i], duration);
         OnPowerUpStarted?.Invoke(type, remaining[i]);
+    }
+    // Wyłącza jeden power-up przed czasem (np. tarcza zużyta na przeszkodzie)
+    public void Deactivate(PowerUpType type)
+    {
+        int i = (int)type;
+        if (remaining[i] <= 0f) return;
+
+        remaining[i] = 0f;
+        OnPowerUpEnded?.Invoke(type);
     }
 
     public bool IsActive(PowerUpType type) => remaining[(int)type] > 0f;

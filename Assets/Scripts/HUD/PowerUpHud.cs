@@ -22,9 +22,14 @@ public class PowerUpHUD : MonoBehaviour
     private void OnEnable()
     {
         if (powerUps == null) return;
+
         powerUps.OnPowerUpStarted += HandleStarted;
         powerUps.OnPowerUpEnded += HandleEnded;
+
+        // HUD mógł być wyłączony (np. ekran Game Over) i przegapić eventy – wyrównujemy stan
+        SyncWithManager();
     }
+
 
     private void OnDisable()
     {
@@ -54,7 +59,28 @@ public class PowerUpHUD : MonoBehaviour
             PowerUpSlot slot = slots[i];
             if (slot == null || !slot.IsVisible) continue;
 
-            slot.SetRemaining(powerUps.GetRemaining((PowerUpType)i));
+            float remaining = powerUps.GetRemaining((PowerUpType)i);
+            if (remaining <= 0f)
+            {
+                slot.Hide(); // koniec, nawet jeśli event nie doszedł
+                continue;
+            }
+
+            slot.SetRemaining(remaining);
+        }
+    }
+    private void SyncWithManager()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            PowerUpSlot slot = slots[i];
+            if (slot == null) continue;
+
+            float remaining = powerUps.GetRemaining((PowerUpType)i);
+            if (remaining <= 0f)
+                slot.Hide();
+            else if (!slot.IsVisible)
+                slot.Show(remaining); // power-up złapany, kiedy HUD był ukryty
         }
     }
 }

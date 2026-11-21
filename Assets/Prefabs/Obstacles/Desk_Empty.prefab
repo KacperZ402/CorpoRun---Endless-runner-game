@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6911764810801001494}
   - component: {fileID: 6147406100922369909}
   - component: {fileID: 5269388904208934051}
+  - component: {fileID: 8601096050434694200}
   m_Layer: 11
   m_Name: Desk_Empty
   m_TagString: Prop
@@ -123,3 +124,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6317106008045385693, guid: d9b09a3e5df09a4419f3a21f69792308, type: 3}
+--- !u!114 &8601096050434694200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5730973505550276196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aacefb73d39ddd47ba461935c0f603f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -258,6 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8756529195665715629}
   - component: {fileID: -5127427479768363586}
+  - component: {fileID: 7234222715711456762}
   m_Layer: 11
   m_Name: CardboardBoxPile_OBS 1
   m_TagString: Untagged
@@ -298,6 +299,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6497148326904038282}
   preloadCount: 4
+--- !u!114 &7234222715711456762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497148326904038282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aacefb73d39ddd47ba461935c0f603f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7001993247030728812
 GameObject:
   m_ObjectHideFlags: 0
