@@ -22,16 +22,23 @@ public class PlayerInvincibility : MonoBehaviour
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
     }
 
-    public void Activate(float duration)
+    public void Activate(float duration, bool blink = true)
     {
         if (routine != null) StopCoroutine(routine);
         IsActive = true;
-        routine = StartCoroutine(InvincibilityRoutine(duration));
+        routine = StartCoroutine(InvincibilityRoutine(duration, blink));
     }
 
-    private IEnumerator InvincibilityRoutine(float duration)
+    private IEnumerator InvincibilityRoutine(float duration, bool blink)
     {
         SetObstacleCollision(false);
+        if (!blink)
+        {
+            SetVisible(true);
+            yield return new WaitForSeconds(duration);
+            Finish();
+            yield break;
+        }
 
         float timer = 0f;
         bool isVisible = true;

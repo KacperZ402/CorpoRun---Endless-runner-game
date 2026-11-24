@@ -12,10 +12,18 @@ public class PlayerMovement : MonoBehaviour
     public float laneChangeSmoothTime = 0.08f;
     public float laneChangeMaxSpeed = 25f;
     [SerializeField] private float laneSpeedIncrease = 1.5f;
+    private float speedMultiplier = 1f;
+    private bool isBoosting;
+    private float boostHeight;
+    private bool gravityBeforeBoost = true;
+    public bool IsBoosting => isBoosting;
     private float startMoveSpeedZ;
     private float nextSpeedMilestoneZ;
     private bool isMaxSpeedReached = false;
     private Vector3 lastPlatformPosition;
+    private bool isHovering; // po boost'cie: bez grawitacji, dopóki pod graczem nie ma podłogi
+    [SerializeField] private float hoverGroundCheckDistance = 10f;
+    private int hoverGroundMask;
 
     [Header("Skalowanie Animacji Biegu")]
     [SerializeField] private float maxRunAnimMultiplier = 1.35f;
@@ -107,8 +115,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveLeft() { if (CanControl) RequestLaneChange(-1); }
     public void MoveRight() { if (CanControl) RequestLaneChange(1); }
-    public void Jump() { if (CanControl) jumpBufferCounter = jumpBufferTime; }
-    public void Slide() { if (CanControl) slideRequested = true; }
+    public void Jump() { if (CanControl && !isBoosting && !isHovering) jumpBufferCounter = jumpBufferTime; }
+    public void Slide() { if (CanControl && !isBoosting && !isHovering) slideRequested = true; }
 
     private void Awake()
     {
@@ -141,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
         jumpLockBoolHash = Animator.StringToHash(jumpLockBoolName);
         headCoverBoolHash = Animator.StringToHash(HeadCoverBoolName);
 
-
+        hoverGroundMask = ~LayerMask.GetMask("Player"); // promień nie łapie samego gracza
 
     }
 
@@ -208,7 +216,26 @@ public class PlayerMovement : MonoBehaviour
         targetX = LaneToWorldX(currentLane);
         nextX = Mathf.SmoothDamp(rb.position.x, targetX, ref laneVelocity, laneChangeSmoothTime, laneChangeMaxSpeed, Time.fixedDeltaTime);
         velocity.x = (nextX - rb.position.x) / Time.fixedDeltaTime;
-        velocity.z = moveSpeedZ;
+        velocity.z = moveSpeedZ * speedMultiplier;
+
+        // Boost: bez grawitacji, skoków i slide'ów – trzymamy wysokość, żeby nie spaść między budynkami
+        if (isBoosting || isHovering)
+        {
+            // zawis kończy się, gdy pod graczem pojawi się podłoga – wtedy wraca grawitacja i normalny ruch
+            if (isHovering && Physics.Raycast(rb.position + Vector3.up * 0.1f, Vector3.down,
+                    hoverGroundCheckDistance, hoverGroundMask, QueryTriggerInteraction.Ignore))
+            {
+                isHovering = false;
+                rb.useGravity = gravityBeforeBoost;
+            }
+            else
+            {
+                velocity.y = Mathf.Clamp((boostHeight - rb.position.y) / Time.fixedDeltaTime, -10f, 10f);
+                rb.velocity = velocity;
+                UpdateAnimatorGroundedState();
+                return;
+            }
+        }
 
         // 5. skok (na podstawie bufora)
         if (jumpBufferCounter > 0f && jumpAvailable)
@@ -378,8 +405,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        bool animatorGrounded = isGrounded || jumpAnimationLock;
-        bool animatorFalling = !isGrounded && !jumpAnimationLock;
+        bool grounded = isGrounded || isBoosting || isHovering;
+        bool animatorGrounded = grounded || jumpAnimationLock;
+        bool animatorFalling = !grounded && !jumpAnimationLock;
 
         animator.SetBool(isGroundedBoolHash, animatorGrounded);
         animator.SetBool(isFallingBoolHash, animatorFalling);
@@ -404,6 +432,53 @@ public class PlayerMovement : MonoBehaviour
         isBetweenBuildings = false;
         followCameraY = false;
         lockedFloorY = transform.position.y;
+
+        ResetBoostState();
+    }
+
+    // Wołane przez SpeedBoostPowerUp
+    // Wołane przez SpeedBoostPowerUp
+    public void StartBoost(float multiplier)
+    {
+        speedMultiplier = Mathf.Max(1f, multiplier);
+        if (isBoosting) return; // odświeżenie boosta
+
+        // nowy boost w trakcie zawisu – grawitacja i wysokość są już ustawione
+        if (!isHovering)
+        {
+            boostHeight = rb.position.y;
+            gravityBeforeBoost = rb.useGravity;
+            rb.useGravity = false;
+        }
+
+        isHovering = false;
+        isBoosting = true;
+
+        EndSlide();
+        jumpBufferCounter = 0f;
+        slideRequested = false;
+    }
+
+    public void EndBoost()
+    {
+        if (!isBoosting) return;
+
+        isBoosting = false;
+        speedMultiplier = 1f;
+
+        // grawitacja wraca dopiero, gdy pod graczem będzie podłoga (patrz FixedUpdate)
+        isHovering = true;
+    }
+
+    // Pełny reset boosta i zawisu (np. przy Revive)
+    private void ResetBoostState()
+    {
+        if (!isBoosting && !isHovering) return;
+
+        isBoosting = false;
+        isHovering = false;
+        speedMultiplier = 1f;
+        rb.useGravity = gravityBeforeBoost;
     }
 
     private float LaneToWorldX(int lane)

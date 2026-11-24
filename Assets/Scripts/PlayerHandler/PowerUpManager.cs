@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum PowerUpType { Magnet, CoinMultiplier, Shield } 
+public enum PowerUpType { Magnet, CoinMultiplier, Shield, SpeedBoost}
 
 // Trzyma aktywne power-upy i ich czasy. Wrzuć na gracza.
 public class PowerUpManager : MonoBehaviour
