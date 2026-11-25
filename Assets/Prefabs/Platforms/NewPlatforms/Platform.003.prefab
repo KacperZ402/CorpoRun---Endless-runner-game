@@ -1311,12 +1311,20 @@ MonoBehaviour:
   - {fileID: 6497148326904038282, guid: 4d08a01e7a8480b4abfca97c6fca25a0, type: 3}
   - {fileID: 3174916744602465499, guid: 3359cf61d4fc58344ae5731de1c306ec, type: 3}
   - {fileID: 657795716894905429, guid: 148d353ffaddf8346a30707ae9de8e1d, type: 3}
-  coinPrefabs: []
+  coinPrefabs:
+  - {fileID: 495585615112625829, guid: 29a5da82b7fe1b5408c79a9629f1528a, type: 3}
   coinInRowChance: 0.4
   coinBetweenRowsChance: 0.6
   coinDefaultHeight: 3
   coinJumpHeight: 10
   coinSlideHeight: 1
+  powerUpPrefabs:
+  - {fileID: 3539867119719357901, guid: 5ca01957e2212684b8ec46277494999f, type: 3}
+  - {fileID: 3540459542991797294, guid: 734ba116bd9bd334fa751bb46d734563, type: 3}
+  - {fileID: 4081551025765392534, guid: f722a187681e63f45b6c9b4c4a79b5f5, type: 3}
+  - {fileID: 2825390590445770036, guid: 4c4a59fbc1a1ad04e919c9b3bd9fdfa7, type: 3}
+  powerUpChance: 0.1
+  minSegmentsBetweenPowerUps: 3
   startAnchor: {fileID: 3508012409240379163}
   segmentLength: 170
   laneWidth: 15

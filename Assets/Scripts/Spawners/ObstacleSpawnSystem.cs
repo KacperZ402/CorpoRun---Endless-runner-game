@@ -20,6 +20,13 @@ public class SegmentObstacleSpawner : MonoBehaviour
     public float coinJumpHeight = 10f;
     public float coinSlideHeight = 1f;  // Pod przeszkodą do wślizgu
 
+    [Header("Power-upy")]
+    public GameObject[] powerUpPrefabs;
+    [Tooltip("Szansa, że zamiast monety między rzędami pojawi się power-up")]
+    [Range(0f, 1f)] public float powerUpChance = 0.03f;
+    [Tooltip("Minimalny odstęp między power-upami (w segmentach)")]
+    public int minSegmentsBetweenPowerUps = 3;
+
     [Header("Ustawienia Torów i Platformy")]
     public Transform startAnchor;     // Pusty obiekt na początku (X:0, Y:0, Z:0 lokalnie)
     public float segmentLength = 50f; // Długość platformy w osi Z
@@ -36,19 +43,48 @@ public class SegmentObstacleSpawner : MonoBehaviour
     // wirtualny gracz płynnie przechodzi między nimi bez teleportacji.
     private static int currentSafeLane = 0;
 
-    private void Start()
+    private static int segmentsSincePowerUp = 0;
+    private bool powerUpSpawnedHere;
+
+    // Co ten segment postawił – żeby po wyjęciu z poola nie dublować przeszkód
+    private readonly List<GameObject> spawnedObjects = new List<GameObject>();
+
+    private void OnEnable()
     {
-        // Generujemy przeszkody od razu, gdy segment pojawia się na scenie
+        ReturnLeftovers();
         GenerateObstacles();
+    }
+
+    // Oddaje to, co zostało z poprzedniego użycia (np. gdy segment schował limit w PlatformManager)
+    private void ReturnLeftovers()
+    {
+        for (int i = 0; i < spawnedObjects.Count; i++)
+        {
+            GameObject obj = spawnedObjects[i];
+
+            // tylko to, co dalej jest naszym dzieckiem – zebrane monety mogą już być w innym segmencie
+            if (obj == null || obj.transform.parent != transform) continue;
+
+            if (obj.TryGetComponent(out PoolableObject po))
+                po.ReturnToPool();
+            else
+                Destroy(obj);
+        }
+
+        spawnedObjects.Clear();
     }
 
     public void GenerateObstacles()
     {
+
         if (startAnchor == null)
         {
             Debug.LogError("Brak przypisanego startAnchor w segmencie!");
             return;
         }
+
+        powerUpSpawnedHere = false;
+        segmentsSincePowerUp++;
 
         float currentLocalZ = startOffsetZ;
 
@@ -129,15 +165,33 @@ public class SegmentObstacleSpawner : MonoBehaviour
 
     private void SpawnBetweenRowsCoin(float localZ)
     {
+        // Pomiędzy rzędami stawiamy na torze bezpiecznym – zawsze da się to zebrać
+        float xOffset = currentSafeLane * laneWidth;
+        Vector3 worldPosition = startAnchor.TransformPoint(new Vector3(xOffset, 0, localZ));
+
+        if (TrySpawnPowerUp(worldPosition)) return;
+
         if (coinPrefabs == null || coinPrefabs.Length == 0) return;
         if (Random.value > coinBetweenRowsChance) return;
 
-        // Monetę pomiędzy rzędami stawiamy na torze bezpiecznym
-        float xOffset = currentSafeLane * laneWidth;
-        Vector3 localPosition = new Vector3(xOffset, 0, localZ);
-        Vector3 worldPosition = startAnchor.TransformPoint(localPosition);
-
         SpawnCoinAt(ObstacleType.None, worldPosition);
+    }
+
+    private bool TrySpawnPowerUp(Vector3 baseGroundPosition)
+    {
+        if (powerUpPrefabs == null || powerUpPrefabs.Length == 0) return false;
+        if (powerUpSpawnedHere || segmentsSincePowerUp < minSegmentsBetweenPowerUps) return false;
+        if (Random.value > powerUpChance) return false;
+
+        GameObject prefab = powerUpPrefabs[Random.Range(0, powerUpPrefabs.Length)];
+        if (prefab == null) return false;
+
+        Vector3 spawnPos = baseGroundPosition + startAnchor.up * coinDefaultHeight;
+        spawnedObjects.Add(SingleObjectPool.Instance.Get(prefab, spawnPos, prefab.transform.rotation, transform));
+
+        powerUpSpawnedHere = true;
+        segmentsSincePowerUp = 0;
+        return true;
     }
 
     private void SpawnCoinAt(ObstacleType obstacleUnderneath, Vector3 baseGroundPosition)
@@ -155,7 +209,7 @@ public class SegmentObstacleSpawner : MonoBehaviour
         GameObject coinPrefab = coinPrefabs[Random.Range(0, coinPrefabs.Length)];
         Quaternion defaultRotation = coinPrefab.transform.rotation;
 
-        SingleObjectPool.Instance.Get(coinPrefab, spawnPos, defaultRotation, transform);
+        spawnedObjects.Add(SingleObjectPool.Instance.Get(coinPrefab, spawnPos, defaultRotation, transform));
     }
 
     private void SpawnObstacle(ObstacleType type, Vector3 position)
@@ -174,7 +228,7 @@ public class SegmentObstacleSpawner : MonoBehaviour
         {
             // Tworzymy przeszkodę i od razu podpinamy ją pod ten segment (transform)
             // Jak usuniesz segment, przeszkody znikną razem z nim.
-            SingleObjectPool.Instance.Get(prefabToSpawn, position, Quaternion.identity, transform);
+            spawnedObjects.Add(SingleObjectPool.Instance.Get(prefabToSpawn, position, Quaternion.identity, transform));
         }
     }
 

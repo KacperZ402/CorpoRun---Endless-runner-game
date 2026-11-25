@@ -348,6 +348,13 @@ MonoBehaviour:
   coinDefaultHeight: 3
   coinJumpHeight: 10
   coinSlideHeight: 1
+  powerUpPrefabs:
+  - {fileID: 3539867119719357901, guid: 5ca01957e2212684b8ec46277494999f, type: 3}
+  - {fileID: 3540459542991797294, guid: 734ba116bd9bd334fa751bb46d734563, type: 3}
+  - {fileID: 4081551025765392534, guid: f722a187681e63f45b6c9b4c4a79b5f5, type: 3}
+  - {fileID: 2825390590445770036, guid: 4c4a59fbc1a1ad04e919c9b3bd9fdfa7, type: 3}
+  powerUpChance: 0.1
+  minSegmentsBetweenPowerUps: 3
   startAnchor: {fileID: 3038854602122186885}
   segmentLength: 270
   laneWidth: 15
