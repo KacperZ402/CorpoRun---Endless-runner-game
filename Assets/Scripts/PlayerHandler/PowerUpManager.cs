@@ -11,6 +11,8 @@ public class PowerUpManager : MonoBehaviour
     private float[] remaining;
     private PlayerLife life;
 
+    [SerializeField] private PowerUpUpgrades upgrades;
+
     [SerializeField] private int coinMultiplier = 2;
     public int CoinMultiplier => IsActive(PowerUpType.CoinMultiplier) ? coinMultiplier : 1;
 
@@ -37,6 +39,11 @@ public class PowerUpManager : MonoBehaviour
         // drugi taki sam power-up odświeża czas, a nie go sumuje
         remaining[i] = Mathf.Max(remaining[i], duration);
         OnPowerUpStarted?.Invoke(type, remaining[i]);
+    }
+    public void Activate(PowerUpType type)
+    {
+        float duration = upgrades != null ? upgrades.GetDuration(type) : 10f;
+        Activate(type, duration);
     }
     // Wyłącza jeden power-up przed czasem (np. tarcza zużyta na przeszkodzie)
     public void Deactivate(PowerUpType type)

@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74dafa76048b1d45bc5924ea22ef68e, type: 3}
+  m_Name: ShopCatalog
+  m_EditorClassIdentifier: 
+  upgradeCosts: fa000000f4010000e8030000d0070000
+  powerUps:
+  - id: magnet
+    displayName: Magnet
+    description: Pulls in coins from every lane.
+    icon: {fileID: 21300000, guid: a24fe0c4ebc24704d8708c2f68b8e1e0, type: 3}
+    statLabel: Duration
+    unit: s
+    values:
+    - 10
+    - 12
+    - 15
+    - 18
+    - 22
+  - id: coins2
+    displayName: Coins x2
+    description: Every coin you grab counts double.
+    icon: {fileID: 21300000, guid: 29b8a3369fc94294fb11e6ed4d20a673, type: 3}
+    statLabel: Duration
+    unit: s
+    values:
+    - 8
+    - 10
+    - 13
+    - 16
+    - 20
+  - id: shield
+    displayName: Shield
+    description: Take one hit and keep running.
+    icon: {fileID: 21300000, guid: 1f64eb7f2635d3d4b8fe34130617ea3d, type: 3}
+    statLabel: Duration
+    unit: s
+    values:
+    - 6
+    - 8
+    - 10
+    - 13
+    - 16
+  - id: headstart
+    displayName: Headstart
+    description: Dash through the first stretch of the run.
+    icon: {fileID: 21300000, guid: 1ad0a61ccb338844d865c12df0e924c4, type: 3}
+    statLabel: Distance
+    unit: m
+    values:
+    - 300
+    - 500
+    - 750
+    - 1000
+    - 1500
+  skins:
+  - id: classic
+    displayName: Classic
+    rarity: 0
+    description: The original faceless runner.
+    cost: 0
+    preview: {fileID: 21300000, guid: 8daa69bd6a04f954e904f5d1fe502926, type: 3}
+  - id: intern
+    displayName: Intern
+    rarity: 0
+    description: Unpaid, unseen, unstoppable.
+    cost: 0
+    preview: {fileID: 21300000, guid: 3b5079090a45ea94da5dc4c6d024ea43, type: 3}
+  - id: manager
+    displayName: Manager
+    rarity: 1
+    description: Suit, tie and a stolen quarterly report.
+    cost: 500
+    preview: {fileID: 21300000, guid: 31d46044bff1ffa4fa26d93ee8c7575c, type: 3}
+  - id: janitor
+    displayName: Janitor
+    rarity: 1
+    description: Knows every back door in the building.
+    cost: 800
+    preview: {fileID: 21300000, guid: 8834fc677e2961e4983935accf3ce31b, type: 3}
+  - id: undercover
+    displayName: Undercover
+    rarity: 2
+    description: Dressed as security. Nobody suspects a thing.
+    cost: 1200
+    preview: {fileID: 21300000, guid: 8ed34d203bcfec449ad503899504414e, type: 3}
+  - id: ceo
+    displayName: CEO
+    rarity: 3
+    description: The boss is leaking his own files.
+    cost: 2500
+    preview: {fileID: 21300000, guid: 7fa0d8bd54758a742a1473d7b750db6f, type: 3}

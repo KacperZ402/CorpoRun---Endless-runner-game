@@ -10,6 +10,6 @@ public class PowerUpPickup : PickupItem
     {
         PowerUpManager manager = player.GetComponentInParent<PowerUpManager>();
         if (manager != null)
-            manager.Activate(type, duration);
+            manager.Activate(type);
     }
 }

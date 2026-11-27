@@ -25,6 +25,8 @@ public class SaveData
     public List<string> unlockedSkins = new List<string> { "default" };
     public string selectedSkin = "default";
 
+    public List<int> powerUpLevels = new List<int>(); // indeks = PowerUpType, wartość = liczba ulepszeń
+
     // Ustawienia
     public float musicVolume = 1f;
     public float sfxVolume = 1f;
@@ -136,6 +138,28 @@ public class GameSaver : MonoBehaviour
         SaveAndNotify();
     }
 
+    public int GetPowerUpLevel(PowerUpType type)
+    {
+        int i = (int)type;
+        return i < Data.powerUpLevels.Count ? Data.powerUpLevels[i] : 0;
+    }
+
+    // Zakup w jednym kroku: odejmuje monety i podbija poziom, potem jeden zapis
+    public bool TryBuyPowerUpUpgrade(PowerUpType type, int price)
+    {
+        if (price < 0 || price == int.MaxValue || Data.coins < price) return false;
+
+        Data.coins -= price;
+
+        int i = (int)type;
+        while (Data.powerUpLevels.Count <= i)
+            Data.powerUpLevels.Add(0);
+        Data.powerUpLevels[i]++;
+
+        SaveAndNotify();
+        return true;
+    }
+
     // Ustawienia – zapisują się dopiero przy wyjściu/pauzie (suwak wywołuje to wiele razy na sekundę)
     public void SetMusicVolume(float v) { Data.musicVolume = Mathf.Clamp01(v); OnDataChanged?.Invoke(); }
     public void SetSfxVolume(float v) { Data.sfxVolume = Mathf.Clamp01(v); OnDataChanged?.Invoke(); }
@@ -229,6 +253,8 @@ public class GameSaver : MonoBehaviour
         Save();
         OnDataChanged?.Invoke();
     }
+
+
 
     // ===================== NARZĘDZIA DO TESTÓW =====================
     // Prawy klik na komponencie GameSaver w Inspectorze

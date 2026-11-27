@@ -6,9 +6,11 @@ using TMPro;
 public class MainMenuCoins : MonoBehaviour
 {
     [SerializeField] private TMP_Text coinsText;
+    [SerializeField] private TMP_Text coinsSesion;
     [SerializeField] private TMP_Text highScoreText;
     [SerializeField] private TMP_Text score;
     [SerializeField] private string format = "{0}"; // np. "Monety: {0}"
+    [SerializeField] private string sessionFormat = "{0}";
     [SerializeField] private string highScoreFormat = "HighScore: {0}";
     [SerializeField] private string scoreFormat = "Score: {0}";
 
@@ -55,5 +57,8 @@ public class MainMenuCoins : MonoBehaviour
             highScoreText.SetText(highScoreFormat, d.highScore);
         if (score != null)
             score.SetText(scoreFormat, GameHUD.Instance.GetCurrentDistance());
+        if (coinsSesion != null) { 
+            coinsSesion.SetText(sessionFormat, GameHUD.Instance.GetSessionCoins());
+        }
     }
 }
